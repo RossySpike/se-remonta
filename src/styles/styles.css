@@ -1,0 +1,105 @@
+:root{
+  --outline: gray;
+}
+ @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap");
+ 
+ 
+ @font-face {
+   font-family: 'Gv Time';
+   src: url("/fonts/gvtimeregular-bw768.ttf") format("truetype");
+   font-weight: normal;
+   font-style: normal;
+ }
+/*
+*{
+  border: 3px dotted red;
+}
+*/
+header{
+  border:2px solid rgb(234, 236, 240);
+  width: 100%;
+  margin-bottom: 10px;
+}
+body{
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+
+}
+button{
+width: 100%;
+  background-color: #13aa52;
+  border: 1px solid #13aa52;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+  outline: none;
+  outline: 0;
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 150ms, box-shadow 150ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  &:hover {
+  box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+  transform: translateY(-2px);
+  }
+
+}
+#elim{
+  background-color:red;
+  border-color: red;
+
+}
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  & #calcular{
+    width: 58%;
+  }
+  border: 2px solid var(--outline);
+  border-radius: 5px;
+  box-shadow: 5px 4px 0px var(--outline);
+  padding: 10px;
+  margin:20px;
+}
+span{
+  margin: 4px 10px 10px;
+  display: flex;
+  width:58%;
+  & button{
+    margin: 0 3px;
+  }
+}
+
+
+
+section{
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  
+  z-index: 1;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 2px solid var(--outline);
+  box-shadow: -5px 4px 0px var(--outline);
+  align-items: center;
+  top: 50%;
+}
+#canPassTables{
+  overflow: scroll;
+  height: 400px;
+}
+p{
+  text-align: center;
+}

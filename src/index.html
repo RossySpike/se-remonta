@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html id="html">
+  <head>
+    <link rel="stylesheet" href="/styles/styles.css">
+  </head>
+<body>
+  <header><h1>Se remonta?</h1></header>
+    <p>
+      Usa esta calculadora para saber si puedes (o no) pasar una materia con las notas que tienes.
+      <br>
+      Uso:
+      <br>
+      Introduce la nota maxima en la caja donde se indica, representa la nota maxima que puedes sacr en los examenes.
+      <br>
+      Introduce la nota minima para aprobar en la caja donde se indica, representa la nota minima que necesitas para aprobar la materia.
+      <br>
+      Puedes colocar la nota que sacaste en un examen junto al porcentaje que el mismo representa, si no lo has presentado lo puedes dejar vacio sin embargo, <strong>debes</strong> colocar el porcentaje.
+
+      
+    </p>
+  <form>
+      <h2>Datos aqui:</h2>
+      <div>
+      <label for="nota_maxima">Nota maxima:</label>
+      <input required type="number" step="0.01" name="nota_maxima" id = "nota_maxima" placeholder="20"/>
+      <label for="nota_min_aprobatoria">Nota minima para aprobar:</label>
+      <input required type="number" step="0.01" name="nota_min_aprobatoria" id="nota_min_aprobatoria" placeholder="9.5"/>
+      </div>
+      <table id = "table">
+        <thead>
+          <tr>
+            <th>Nota</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tr id = "tr">
+          <th scope="row">
+            <input type="number" step="0.01" name="nota" placeholder="Nota que sacaste"/>
+          </th>
+          <th>
+            <input required type="number" step="0.01" name="porcentaje" placeholder="Porcentaje de la evaluacion"/>
+          </th>
+        </tr>
+      </table>
+
+      <span>
+        <button type="button" id = "elim">x</button>
+        <button type="button" id="agg">+</button>
+      </span>
+      <button id="calcular" type="button">Calcular</button>
+    </form>
+    <section  id="mensaje">
+      <h2></h2>
+      <button id="close" type="button">Cerrar</button>
+    </section>
+    <div id="canPassTables">
+    </div>
+  </body>
+  <script defer src="/scripts/index.js" ></script>
+</html>
