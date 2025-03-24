@@ -6,12 +6,13 @@ enum valor {
 let numQuizzes: number = 1;
 let table = document.getElementById('table') as HTMLTableElement;
 
+const form = document.getElementById('form') as HTMLFormElement;
 const bttnAdd = document.getElementById('agg') as HTMLButtonElement;
 const bttnDel = document.getElementById('elim') as HTMLButtonElement;
 const bttnSubmit = document.getElementById('calcular') as HTMLButtonElement;
-const html = document.getElementById('html') as HTMLHtmlElement;
 const messageBox = document.getElementById('mensaje') as HTMLTableSectionElement;
 const bttnClose = document.getElementById('close') as HTMLButtonElement;
+const loader = document.getElementById('loader') as HTMLDivElement;
 
 
 bttnAdd.addEventListener('click', () => {
@@ -19,16 +20,16 @@ bttnAdd.addEventListener('click', () => {
   row.innerHTML = `
 <tr id="${numQuizzes++}">
 <th scope="row">
-            <input type="number" name="nota" step="0.01" placeholder="Nota que sacaste"/>
+            <input type="number" name="nota" step="0.01" min='0' placeholder="Nota que sacaste" />
         </th>
         <th>
-            <input required type="number" name="porcentaje" step="0.01" placeholder="Porcentaje de la evaluacion"/>
+            <input required type="number" name="porcentaje" step="0.01" min='0' placeholder="Porcentaje de la evaluacion" />
         </th>
 </tr>`;
 });
 
 bttnDel.addEventListener('click', () => {
-  if (numQuizzes > 0) {
+  if (numQuizzes > 1) {
     table.deleteRow(numQuizzes);
     numQuizzes--;
   }
@@ -178,7 +179,23 @@ function getQuizzes(quizzes: Array<Array<number>>) {
   }
 }
 
-bttnSubmit.addEventListener('click', () => {
+function decorateMessageBox(isError: boolean) {
+  const h2 = messageBox.firstElementChild as HTMLHeadingElement;
+  const gif = document.getElementById('gif') as HTMLImageElement;
+  gif.src = !isError ? "media/succes/succes-1.gif" : "media/fail/fail-1.gif"
+  console.log(gif.src, gif);
+  debugger;
+  h2.innerHTML = !isError ? "Puedes pasar!" : "Lo siento...";
+  messageBox.style.display = "flex";
+}
+
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+  loader.style.display = "flex";
+  let quizzes: Array<Array<number>> = [];
+  getQuizzes(quizzes);
+  let result: number[][] = [];
+
   const tableDiv = document.createElement('div');
   tableDiv.id = "canPassTables";
   const actual = document.getElementById('canPassTables') as HTMLDivElement | null;
@@ -186,15 +203,10 @@ bttnSubmit.addEventListener('click', () => {
     document.body.removeChild(actual);
 
 
-  let quizzes: Array<Array<number>> = [];
-  getQuizzes(quizzes);
+  loader.style.display = "none";
 
-  let result: number[][] = [];
-  let h2 = messageBox.firstElementChild as HTMLHeadingElement;
-  h2.innerHTML = canPass(quizzes, result) ? "Puedes pasar!" : "Lo siento...";
-  messageBox.style.display = "flex";
-  console.log(result);
-  debugger;
+
+  decorateMessageBox(!canPass(quizzes, result));
 
 
   for (let j = 0; j < result.length; j++) {

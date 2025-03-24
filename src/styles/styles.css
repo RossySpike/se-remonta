@@ -1,26 +1,23 @@
 :root{
   --outline: gray;
 }
- @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap");
  
  
- @font-face {
-   font-family: 'Gv Time';
-   src: url("/fonts/gvtimeregular-bw768.ttf") format("truetype");
-   font-weight: normal;
-   font-style: normal;
- }
 /*
 *{
   border: 3px dotted red;
 }
 */
 header{
-  border:2px solid rgb(234, 236, 240);
+  border:2px solid var(--outline);
   width: 100%;
   margin-bottom: 10px;
+  & h1{
+    margin-left:30px;
+  }
 }
 body{
+  font-family:'Poppins',sans-serif;
     display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,22 +60,44 @@ form{
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  & #table{
+
+    margin: 50px;
+    padding: 20px;
+    border: 3px solid var(--outline);
+
+      border-radius:6px;
+    &>thead>tr>th{
+      
+      border-bottom:2px solid var(--outline);
+      border-radius:6px;
+      padding-bottom:10px;
+
+    }
+  }
   & #calcular{
     width: 58%;
   }
   border: 2px solid var(--outline);
+      border-radius:13px;
   border-radius: 5px;
   box-shadow: 5px 4px 0px var(--outline);
   padding: 10px;
   margin:20px;
-}
-span{
+  & div{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  &>span{
   margin: 4px 10px 10px;
   display: flex;
   width:58%;
-  & button{
-    margin: 0 3px;
-  }
+    & button{
+      margin: 0 3px;
+    }
+}
 }
 
 
@@ -86,20 +105,55 @@ span{
 section{
   display: none;
   flex-direction: column;
-  position: absolute;
-  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   z-index: 1;
   background-color: #fff;
   border-radius: 5px;
   border: 2px solid var(--outline);
   box-shadow: -5px 4px 0px var(--outline);
   align-items: center;
-  top: 50%;
 }
 #canPassTables{
   overflow: scroll;
-  height: 400px;
+  height: 500px;
 }
-p{
+#context{
   text-align: center;
+  margin: 20px;
+  margin-bottom: 0;
+  padding: 10px;
+  & ul{
+    text-align: left;
+  }
+}
+#loader{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  gap: 50px;
+  & span{
+    display: inline-block;
+    background-color: var(--outline);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    animation: loading 1s ease-in-out infinite  alternate;
+    animation-delay:calc(0.3s * var(--i)); 
+  }
+}
+@keyframes loading{
+30%,
+100%{
+  scale: 1.2;
+  background-color: #8080805c;
+}
+
 }

@@ -16,18 +16,19 @@ var valor;
 })(valor || (valor = {}));
 var numQuizzes = 1;
 var table = document.getElementById('table');
+var form = document.getElementById('form');
 var bttnAdd = document.getElementById('agg');
 var bttnDel = document.getElementById('elim');
 var bttnSubmit = document.getElementById('calcular');
-var html = document.getElementById('html');
 var messageBox = document.getElementById('mensaje');
 var bttnClose = document.getElementById('close');
+var loader = document.getElementById('loader');
 bttnAdd.addEventListener('click', function () {
     var row = table.insertRow();
-    row.innerHTML = "\n<tr id=\"".concat(numQuizzes++, "\">\n<th scope=\"row\">\n            <input type=\"number\" name=\"nota\" step=\"0.01\" placeholder=\"Nota que sacaste\"/>\n        </th>\n        <th>\n            <input required type=\"number\" name=\"porcentaje\" step=\"0.01\" placeholder=\"Porcentaje de la evaluacion\"/>\n        </th>\n</tr>");
+    row.innerHTML = "\n<tr id=\"".concat(numQuizzes++, "\">\n<th scope=\"row\">\n            <input type=\"number\" name=\"nota\" step=\"0.01\" min='0' placeholder=\"Nota que sacaste\" />\n        </th>\n        <th>\n            <input required type=\"number\" name=\"porcentaje\" step=\"0.01\" min='0' placeholder=\"Porcentaje de la evaluacion\" />\n        </th>\n</tr>");
 });
 bttnDel.addEventListener('click', function () {
-    if (numQuizzes > 0) {
+    if (numQuizzes > 1) {
         table.deleteRow(numQuizzes);
         numQuizzes--;
     }
@@ -163,20 +164,27 @@ function getQuizzes(quizzes) {
         quizzes.push([nota, porcentaje]);
     }
 }
+function decorateMessageBox(isError) {
+    var h2 = messageBox.firstElementChild;
+    var gif = document.getElementById('gif');
+    gif.src = !isError ? "media/succes/succes-1.gif" : "media/fail/fail-1.gif";
+    console.log(gif.src, gif);
+    debugger;
+    h2.innerHTML = !isError ? "Puedes pasar!" : "Lo siento...";
+    messageBox.style.display = "flex";
+}
 bttnSubmit.addEventListener('click', function () {
+    loader.style.display = "flex";
+    var quizzes = [];
+    getQuizzes(quizzes);
+    var result = [];
     var tableDiv = document.createElement('div');
     tableDiv.id = "canPassTables";
     var actual = document.getElementById('canPassTables');
     if (actual)
         document.body.removeChild(actual);
-    var quizzes = [];
-    getQuizzes(quizzes);
-    var result = [];
-    var h2 = messageBox.firstElementChild;
-    h2.innerHTML = canPass(quizzes, result) ? "Puedes pasar!" : "Lo siento...";
-    messageBox.style.display = "flex";
-    console.log(result);
-    debugger;
+    loader.style.display = "none";
+    decorateMessageBox(!canPass(quizzes, result));
     for (var j = 0; j < result.length; j++) {
         var item = 0;
         var newTable = table.cloneNode(true);
