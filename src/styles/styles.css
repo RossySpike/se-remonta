@@ -9,7 +9,7 @@
 }
 */
 header{
-  border:2px solid var(--outline);
+  border-bottom:2px solid var(--outline);
   width: 100%;
   margin-bottom: 10px;
   & h1{

@@ -173,7 +173,8 @@ function decorateMessageBox(isError) {
     h2.innerHTML = !isError ? "Puedes pasar!" : "Lo siento...";
     messageBox.style.display = "flex";
 }
-bttnSubmit.addEventListener('click', function () {
+form.addEventListener('submit', function (event) {
+    event.preventDefault();
     loader.style.display = "flex";
     var quizzes = [];
     getQuizzes(quizzes);
